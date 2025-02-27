@@ -2,7 +2,7 @@
 const admin = require("firebase-admin");
 
 // Initialize Firebase Admin SDK
-const serviceAccount = require("./teacher-escuela-firebase-adminsdk-35q2o-edebf7096d.json"); // Файл с данными для доступа к тестовой БД
+const serviceAccount = require("./teacher-escuela-firebase-adminsdk-35q2o-edebf7096d.json"); // Р¤Р°Р№Р» СЃ РґР°РЅРЅС‹РјРё РґР»СЏ РґРѕСЃС‚СѓРїР° Рє С‚РµСЃС‚РѕРІРѕР№ Р‘Р”
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
@@ -10,7 +10,7 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-// 1. Подсчет учеников с параметром student: true
+// 1. РџРѕРґСЃС‡РµС‚ СѓС‡РµРЅРёРєРѕРІ СЃ РїР°СЂР°РјРµС‚СЂРѕРј student: true
 async function countStudents() {
     try {
         const studentsRef = db.collection("students");
@@ -22,7 +22,7 @@ async function countStudents() {
     }
 }
 
-// 2. Подсчет учеников с параметром student: true и наличием подколлекции notes
+// 2. РџРѕРґСЃС‡РµС‚ СѓС‡РµРЅРёРєРѕРІ СЃ РїР°СЂР°РјРµС‚СЂРѕРј student: true Рё РЅР°Р»РёС‡РёРµРј РїРѕРґРєРѕР»Р»РµРєС†РёРё notes
 async function countStudentsWithNotes() {
     try {
         const studentsRef = db.collection("students");
@@ -31,7 +31,7 @@ async function countStudentsWithNotes() {
         let count = 0;
         for (const doc of querySnapshot.docs) {
             const notesRef = db.collection("students").doc(doc.id).collection("notes");
-            const notesSnapshot = await notesRef.limit(1).get(); // проверка наличия подколлекции notes
+            const notesSnapshot = await notesRef.limit(1).get(); // ГЇГ°Г®ГўГҐГ°ГЄГ  Г­Г Г«ГЁГ·ГЁГї ГЇГ®Г¤ГЄГ®Г«Г«ГҐГЄГ¶ГЁГЁ notes
             if (!notesSnapshot.empty) {
                 count++;
             }
@@ -43,7 +43,7 @@ async function countStudentsWithNotes() {
     }
 }
 
-// 3. Подсчет количества заметок у всех всех учеников
+// 3. РџРѕРґСЃС‡РµС‚ РєРѕР»РёС‡РµСЃС‚РІР° Р·Р°РјРµС‚РѕРє Сѓ РІСЃРµС… РІСЃРµС… СѓС‡РµРЅРёРєРѕРІ
 async function countAllNotes() {
     try {
         const studentsRef = db.collection("students");
@@ -62,7 +62,7 @@ async function countAllNotes() {
     }
 }
 
-// Запуск всех функций
+// Р—Р°РїСѓСЃРє РІСЃРµС… С„СѓРЅРєС†РёР№
 async function main() {
     await countStudents();
     await countStudentsWithNotes();
