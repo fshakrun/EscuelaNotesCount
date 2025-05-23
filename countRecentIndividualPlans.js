@@ -1,7 +1,7 @@
 ﻿const admin = require('firebase-admin');
 const path = require('path');
 
-// Load service account credentials
+// Подключение
 const serviceAccount = require(path.join(__dirname, 'teacher-escuela-firebase-adminsdk-35q2o-edebf7096d.json'));
 
 // Initialize Firebase Admin
@@ -12,7 +12,7 @@ admin.initializeApp({
 // Firestore instance
 const db = admin.firestore();
 
-// Function to count individualPlans created in the last 30 days
+// Подсчет количества индивидуальных планов с параметром createdAt, содержащим дату не позднее 30 дней от даты запроса
 async function countRecentIndividualPlans() {
     // Calculate date 30 days ago
     const now = new Date();
@@ -26,13 +26,13 @@ async function countRecentIndividualPlans() {
 
         const count = snapshot.size;
 
-        // Display the result on the screen (console)
+        // Вывод результатов запроса в консоль
         console.log(`✅ Number of individualPlans created in the last 30 days: ${count}`);
     } catch (error) {
         console.error('❌ Error retrieving data:', error.message);
     }
 }
 
-// Run the function
+// Запуск функции
 countRecentIndividualPlans();
 
